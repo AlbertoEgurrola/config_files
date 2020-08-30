@@ -1,0 +1,1 @@
+/home/alberto/neovim-config/zsh/zshrc
