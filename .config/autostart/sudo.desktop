@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Exec=sudo mount /dev/sdc2 /home/alberto/Disks/Kikebicito
+Hidden=false
+NoDisplay=false
+X-GNOME-Autostart-enabled=true
+Name[en_US]=mount kikebicito partition
+Name=mount kikebicito partition
+Comment[en_US]=mount disk sdc2
+Comment=mount disk sdc2

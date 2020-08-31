@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Exec=xrandr --output DP-1 --primary --left-of LVDS-0 --output LVDS-0
+Hidden=false
+NoDisplay=false
+X-GNOME-Autostart-enabled=true
+Name[en_US]=Set laptop screen brightness
+Name=Set laptop screen brightness
+Comment[en_US]=Set screen brightness
+Comment=Set screen brightness
