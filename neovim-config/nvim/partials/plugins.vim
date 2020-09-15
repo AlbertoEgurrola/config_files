@@ -40,6 +40,8 @@ function! s:packager_init() abort
   "call packager#add('etdev/vim-hexcolor')
   "call packager#add('norcalli/nvim-colorizer.lua')
   call packager#add('chrisbra/Colorizer')
+  call packager#add('NLKNguyen/papercolor-theme')
+  call packager#add('morhetz/gruvbox')
 endfunction
 
 let g:mapleader = ','                                                           "Change leader to a comma

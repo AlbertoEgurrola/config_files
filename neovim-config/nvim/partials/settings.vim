@@ -2,7 +2,7 @@ let g:loaded_netrwPlugin = 1                                                    
 let g:loaded_matchit = 1                                                        "Do not load matchit, use matchup plugin
 let g:airline_powerline_fonts =1                                                "Poweline fonts for airline pluging
 let g:airline#extensions#tabline#enabled = 1
-let g:airline_thme='powerlineish'
+let g:airline_theme='gruvbox'
 
 set title                                                                       "change the terminal's title
 set number                                                                      "Line numbers are good
@@ -50,6 +50,8 @@ set clipboard=unnamedplus
 :nnoremap <F5> :buffers<CR>:buffer<Space>
 nnoremap H gT
 nnoremap L gt
+nnoremap <C-j> <C-d>
+nnoremap <C-k> <C-u>
 
 "sessions management
 let g:sessions_dir = '~/.vim/sessions'

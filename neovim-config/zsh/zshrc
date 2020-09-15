@@ -18,6 +18,7 @@ plugins=(
   dircycle
   vi-mode
   jira
+  tizonia
 )
 
 ENABLE_CORRECTION="true"
@@ -59,6 +60,8 @@ export FZF_DEFAULT_COMMAND='rg --files'
 export LESS=R
 export HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND="fg=magenta,bold,underline"
 setopt HIST_IGNORE_ALL_DUPS
+export GTK_THEME="Mojave-dark"
+export TERM=xterm-256color
 
 # use ctrl+t to toggle autosuggestions(hopefully this wont be needed as
 # zsh-autosuggestions is designed to be unobtrusive)
@@ -145,3 +148,5 @@ z() {
 
 source ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 fpath+=${ZDOTDIR:-~}/.zsh_functions
+
+source ~/.oh-my-zsh/plugins/tizonia/tizonia.plugin.zsh

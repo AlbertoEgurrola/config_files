@@ -11,10 +11,10 @@ nnoremap <Leader>s :w<CR>
 " Open vertical split
 nnoremap <Leader>v <C-w>v
 
-" Move between slits
+" Move between splits
 nnoremap <c-h> <C-w>h
-nnoremap <c-j> <C-w>j
-nnoremap <c-k> <C-w>k
+"nnoremap <c-j> <C-w>j
+"nnoremap <c-k> <C-w>k
 nnoremap <c-l> <C-w>l
 tnoremap <c-h> <C-\><C-n><C-w>h
 tnoremap <c-l> <C-\><C-n><C-w>l

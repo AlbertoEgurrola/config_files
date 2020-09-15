@@ -84,6 +84,9 @@ myModMask = mod4Mask       -- Sets modkey to super/windows key
 myTerminal :: String
 myTerminal = "tilix"   -- Sets default terminal
 
+myScratchPadTerminal :: String
+myScratchPadTerminal = "alacritty"
+
 myBrowser :: String
 myBrowser = "firefox "               -- Sets firefox as browser for tree select
 -- myBrowser = myTerminal ++ " -e lynx " -- Sets lynx as browser for tree select
@@ -113,10 +116,11 @@ windowCount = gets $ Just . show . length . W.integrate' . W.stack . W.workspace
 myStartupHook :: X ()
 myStartupHook = do
           spawnOnce "nitrogen --restore &"
+          spawnOnce "dropbox start &"
           --spawnOnce "xrandr --output LVDS-0 --brightness 0.5 &"
           spawnOnce "xbacklight -set 50% &"
           spawnOnce "pacmd set-default-sink 0 &"
-          spawnOnce "compton &"
+          spawnOnce "compton --backend glx --vsync opengl &"
           spawnOnce "light-locker --late-locking --lock-on-suspend --lock-on-lid &"
           spawnOnce "nm-applet &"
           --spawnOnce "volumeicon &"
@@ -573,27 +577,20 @@ searchList = [ ("a", archwiki)
              , ("z", S.amazon)
              ]
 
-myScratchPads :: [NamedScratchpad]
+--myScratchPads :: [NamedScratchpad]
 myScratchPads = [ NS "terminal" spawnTerm findTerm manageTerm
-                , NS "mocp" spawnMocp findMocp manageMocp
+                , NS "cal" spawnCal findCal manageCal
                 ]
   where
-    spawnTerm  = myTerminal ++ " -n scratchpad"
+    spawnTerm  = myScratchPadTerminal ++ " --class scratchpad"
     findTerm   = resource =? "scratchpad"
-    manageTerm = customFloating $ W.RationalRect l t w h
-               where
-                 h = 0.9
-                 w = 0.9
-                 t = 0.95 -h
-                 l = 0.95 -w
-    spawnMocp  = myTerminal ++ " -n mocp 'mocp'"
-    findMocp   = resource =? "mocp"
-    manageMocp = customFloating $ W.RationalRect l t w h
-               where
-                 h = 0.9
-                 w = 0.9
-                 t = 0.95 -h
-                 l = 0.95 -w
+    manageTerm = customFloating $ center 0.6 0.6
+
+    spawnCal  = myScratchPadTerminal ++ " --class cal -e $HOME/.config/xmobar/scripts/run_calendar.sh"
+    findCal   = resource =? "cal"
+    manageCal = customFloating $ center 0.22 0.16
+
+    center w h = W.RationalRect ((1 - w) / 2) ((1 - h) / 2) w h
 
 mySpacing :: Integer -> l a -> XMonad.Layout.LayoutModifier.ModifiedLayout Spacing l a
 mySpacing i = spacingRaw False (Border i i i i) True (Border i i i i) True
@@ -711,7 +708,7 @@ myLogHook = fadeInactiveLogHook fadeAmount
 
 confirmYesNo :: Integer -> String -> String -> X()
 confirmYesNo is_a_builtin_function description command = do
-    response <- runProcessWithInput "dmenu" ["-fn", "Mononoki:bold:pixelsize=12", "-sb", "#e00000", "-p", "Confirm " ++ description ++ "?:"] "Yes\nNo\n"
+    response <- runProcessWithInput "dmenu" ["-fn", "Mononoki Nerd Font:bold:pixelsize=18", "-sb", "#e00000", "-p", "Confirm " ++ description ++ "?:"] "Yes\nNo\n"
     when (response == "Yes\n") (
         if is_a_builtin_function == 0
           then spawn (command)
@@ -722,7 +719,7 @@ confirmYesNo is_a_builtin_function description command = do
 
 promptExit :: X()
 promptExit = do
-      response <- runProcessWithInput "dmenu" ["-fn", "Mononoki:bold:pixelsize=12", "-sb", "#f4800d", "-p", "Options:"] "reload\nlock\nlogout\nrestart\nshutdown\n"
+      response <- runProcessWithInput "dmenu" ["-fn", "Mononoki Nerd Font:bold:pixelsize=18", "-sb", "#f4800d", "-p", "Options:"] "reload\nlock\nlogout\nrestart\nshutdown\n"
       --when (isPrefixOf "yes" response) (io exitSuccess)
       case response of
           "reload\n"    -> confirmYesNo 0 "reload" "xmonad --restart"
@@ -745,8 +742,8 @@ myKeys =
 
     -- Run Prompt
         --, ("M-S-<Return>", shellPrompt dtXPConfig)   -- Shell Prompt
-        , ("M-S-<Return>", spawn "dmenu_run -fn 'Mononoki:bold:pixelsize=12' -sb '#f4800d' ")   -- Shell Prompt
-        , ("M-d", spawn "dmenu_run -fn 'Mononoki:bold:pixelsize=12' -sb '#f4800d' ")   -- Shell Prompt
+        , ("M-S-<Return>", spawn "dmenu_run -fn 'Mononoki Nerd Font:bold:pixelsize=18' -sb '#f4800d' ")   -- Shell Prompt
+        , ("M-d", spawn "dmenu_run -fn 'Mononoki Nerd Font:bold:pixelsize=18' -sb '#f4800d' ")   -- Shell Prompt
 
     -- Windows
         --, ("M-S-c", kill1)                           -- Kill the currently focused client
@@ -805,7 +802,8 @@ myKeys =
 
     -- Scratchpads
         , ("M-C-<Return>", namedScratchpadAction myScratchPads "terminal")
-        , ("M-C-c", namedScratchpadAction myScratchPads "mocp")
+        , ("M-C-c", namedScratchpadAction myScratchPads "cal")
+
 
     -- Controls for mocp music player.
         , ("M-u p", spawn "mocp --play")
@@ -837,7 +835,7 @@ myKeys =
         , ("M-M1-m", spawn (myTerminal ++ " -e mocp"))
         , ("M-M1-n", spawn (myTerminal ++ " -e newsboat"))
         , ("M-M1-p", spawn (myTerminal ++ " -e pianobar"))
-        , ("M-M1-r", spawn (myTerminal ++ " -e rtv"))
+        , ("M-M1-r", spawn ("alacritty -e ranger"))
         , ("M-M1-s", spawn ("slack"))
         , ("M-M1-t", spawn (myTerminal ++ " -e toot curses"))
         , ("M-M1-w", spawn (myTerminal ++ " -e wopr report.xml"))
