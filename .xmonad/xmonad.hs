@@ -105,7 +105,8 @@ myNormColor   = "#292d3e"  -- Border color of normal windows
 myFocusColor :: String
 --myFocusColor  = "#bbc5ff"  -- Border color of focused windows
 --myFocusColor  = "#c3e88d"  -- Border color of focused windows
-myFocusColor  = "#f4800d"  -- Border color of focused windows
+--myFocusColor  = "#f4800d"  -- Border color of focused windows
+myFocusColor  = "#c792ea"  -- Border color of focused windows
 
 altMask :: KeyMask
 altMask = mod1Mask         -- Setting this for use in xprompts
@@ -116,16 +117,17 @@ windowCount = gets $ Just . show . length . W.integrate' . W.stack . W.workspace
 myStartupHook :: X ()
 myStartupHook = do
           spawnOnce "nitrogen --restore &"
-          spawnOnce "dropbox start &"
           --spawnOnce "xrandr --output LVDS-0 --brightness 0.5 &"
           spawnOnce "xbacklight -set 50% &"
           spawnOnce "pacmd set-default-sink 0 &"
           spawnOnce "compton --backend glx --vsync opengl &"
           spawnOnce "light-locker --late-locking --lock-on-suspend --lock-on-lid &"
-          spawnOnce "nm-applet &"
+          spawnOnce "trayer --edge top --align right --widthtype request --padding 4 --SetDockType true --SetPartialStrut true --expand true --monitor 0 --transparent true --alpha 0 --tint 0x292d3e --height 24 &"
+          spawnOnce "dropbox start &"
+          spawnOnce "redshift-gtk &"
           --spawnOnce "volumeicon &"
           spawnOnce "pnmixer &"
-          spawnOnce "trayer --edge top --align right --widthtype request --padding 4 --SetDockType true --SetPartialStrut true --expand true --monitor 0 --transparent true --alpha 0 --tint 0x292d3e --height 22 &"
+          spawnOnce "nm-applet &"
           -- spawnOnce "/usr/bin/emacs --daemon &"
           -- spawnOnce "kak -d -s mysession &"
           setWMName "LG3D"
@@ -626,6 +628,10 @@ threeCol = renamed [Replace "threeCol"]
            $ limitWindows 7
            $ mySpacing' 4
            $ ThreeCol 1 (3/100) (1/2)
+threeColMid = renamed [Replace "threeColMid"]
+           $ limitWindows 7
+           $ mySpacing' 4
+           $ ThreeColMid 1 (3/100) (1/2)
 threeRow = renamed [Replace "threeRow"]
            $ limitWindows 7
            $ mySpacing' 4
@@ -668,7 +674,8 @@ myLayoutHook = avoidStruts $ mouseResize $ windowArrange $ T.toggleLayouts float
                                  -- ||| grid
                                  ||| noBorders tabs
                                  -- ||| spirals
-                                 -- ||| threeCol
+                                 ||| threeCol
+                                 ||| threeColMid
                                  -- ||| threeRow
 
 xmobarEscape :: String -> String
@@ -903,7 +910,7 @@ main = do
                         , ppHidden = xmobarColor "#82AAFF" "" . wrap "*" ""   -- Hidden workspaces in xmobar
                         , ppHiddenNoWindows = xmobarColor "#c792ea" ""        -- Hidden workspaces (no windows)
                         , ppTitle = xmobarColor "#b3afc2" "" . shorten 60     -- Title of active window in xmobar
-                        , ppSep =  "<fc=#666666> <fn=2>|</fn> </fc>"                     -- Separators in xmobar
+                        , ppSep =  "<fc=#666666> <fn=2>|</fn> </fc>"          -- Separators in xmobar
                         , ppUrgent = xmobarColor "#C45500" "" . wrap "!" "!"  -- Urgent workspace
                         , ppExtras  = [windowCount]                           -- # of windows current workspace
                         , ppOrder  = \(ws:l:t:ex) -> [ws,l]++ex++[t]

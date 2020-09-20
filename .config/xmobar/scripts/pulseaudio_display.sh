@@ -7,8 +7,16 @@ ICON=$(pacmd list-sinks|grep -A 15 '* index: ' | awk '{ if ($0 ~ /name: .+\.hdmi
 if [ $VOLUME -lt 0 ]
 then
     VOLUME='Mute'
+    VOLUME_ICON="\uf6a9"
+elif [ $VOLUME -e 0 ]
+then
+    VOLUME_ICON="\uf026"
+elif [ $VOLUME -lt 40 ]
+then
+    VOLUME_ICON="\uf027"
 else
     VOLUME="$VOLUME%"
+    VOLUME_ICON="\uf028"
 fi
 
-echo -e "<fn=4>$ICON</fn> $DEVICE: $VOLUME"
+echo -e "<fn=4>$ICON</fn> $DEVICE:  <fn=4>$VOLUME_ICON</fn> $VOLUME"

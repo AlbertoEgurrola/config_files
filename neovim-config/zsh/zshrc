@@ -8,16 +8,16 @@ ZSH_THEME="amuse"
 plugins=(
   git
   zsh-autosuggestions
-  docker-compose
-  z
+  #docker-compose
+  #z
   zsh-syntax-highlighting
   history-substring-search
   command-not-found
-  copydir
-  copyfile
-  dircycle
+  #copydir
+  #copyfile
+  #dircycle
   vi-mode
-  jira
+  #jira
   tizonia
 )
 
@@ -52,7 +52,7 @@ alias togglebg="source ~/neovim-config/toggle_bg.sh toggle"
 alias term-clock="ruby ~/.local/share/applications/term-clock/term-clock.rb"
 alias git-config="/usr/bin/git --git-dir=$HOME/Github/config_files/ --work-tree=$HOME"
 
-export PATH=$PATH:/usr/local/go/bin:~/go/bin:~/.local/bin
+export PATH=$PATH:/usr/local/go/bin:~/go/bin:~/.local/bin:~/.cargo/bin
 export LESS=R
 export EDITOR=nvim
 export MANPAGER="nvim -c 'set ft=man' -"
