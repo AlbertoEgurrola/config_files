@@ -107,6 +107,7 @@ myFocusColor :: String
 --myFocusColor  = "#c3e88d"  -- Border color of focused windows
 --myFocusColor  = "#f4800d"  -- Border color of focused windows
 myFocusColor  = "#c792ea"  -- Border color of focused windows
+--myFocusColor  = "#ffe24f"  -- Border color of focused windows
 
 altMask :: KeyMask
 altMask = mod1Mask         -- Setting this for use in xprompts

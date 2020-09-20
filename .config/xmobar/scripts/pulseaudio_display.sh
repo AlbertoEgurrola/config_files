@@ -8,11 +8,13 @@ if [ $VOLUME -lt 0 ]
 then
     VOLUME='Mute'
     VOLUME_ICON="\uf6a9"
-elif [ $VOLUME -e 0 ]
+elif [ $VOLUME -lt 1 ]
 then
+    VOLUME="$VOLUME%"
     VOLUME_ICON="\uf026"
 elif [ $VOLUME -lt 40 ]
 then
+    VOLUME="$VOLUME%"
     VOLUME_ICON="\uf027"
 else
     VOLUME="$VOLUME%"
