@@ -6,7 +6,7 @@ Config { font    = "xft:Ubuntu:weight=bold:pixelsize=14:antialias=true:hinting=t
        , additionalFonts = [ "xft:Mononoki Nerd Font:pixelsize=12:antialias=true:hinting=true"
                            , "xft:Mononoki Nerd Font:pixelsize=17:antialias=true:hinting=true"
                            , "xft:FontAwesome:pixelsize=14"
-                           , "xft:Font Awesome 5 Free:weight=bold:pixelsize=12"
+                           , "xft:Font Awesome 5 Pro:weight=bold:pixelsize=12"
                            , "xft:EmojiOne Color:weight=regular:pixelsize=15"
                            ]
        , bgColor = "#292d3e"

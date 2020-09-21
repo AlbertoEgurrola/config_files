@@ -21,4 +21,10 @@ else
     VOLUME_ICON="\uf028"
 fi
 
+if [ $DEVICE = "Built-in" ]
+then
+    DEVICE=$(pacmd list-sinks|grep -A 63 '* index: ' | awk '{ if ($0 ~ /active port: <analog-output-headphones>/){print "Logitech"}else if($0 ~ /active port: <analog-output-speaker>/){print "Asus"}}')
+    ICON=$(pacmd list-sinks|grep -A 63 '* index: ' | awk '{ if ($0 ~ /active port: <analog-output-headphones>/){print "\uf8e0"}else if($0 ~ /active port: <analog-output-speaker>/){print "\uf109"}}')
+fi
+
 echo -e "<fn=4>$ICON</fn> $DEVICE:  <fn=4>$VOLUME_ICON</fn> $VOLUME"
